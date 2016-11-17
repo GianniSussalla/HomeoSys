@@ -160,7 +160,7 @@ public class frmConsulta extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 990, 470));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 990, 470));
 
         jPanel3.setBackground(new java.awt.Color(255, 69, 3));
 
