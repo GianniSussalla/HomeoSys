@@ -53,7 +53,6 @@ public class frmpaciente extends javax.swing.JFrame {
     void inhabilitar()
     {
         txtnombre.setEnabled(false);
-        dcFecha.setEnabled(false);
         txtcedula.setEnabled(false);
         txtedad.setEnabled(false);
         txtdireccion.setEnabled(false);
@@ -80,7 +79,6 @@ public class frmpaciente extends javax.swing.JFrame {
     void habilitar()
     {
         txtnombre.setEnabled(true);
-        dcFecha.setEnabled(true);
         txtcedula.setEnabled(true);
         txtedad.setEnabled(true);
         txtdireccion.setEnabled(true);
@@ -440,10 +438,7 @@ public class frmpaciente extends javax.swing.JFrame {
          
          Calendar cal;
          int d,m,a;
-         cal = dcFecha.getCalendar();
-         d=cal.get(Calendar.DAY_OF_MONTH);
-         d=cal.get(Calendar.MONTH);
-         d=cal.get(Calendar.YEAR) -1900;
+      
          
          if(accion.equals("guardar")){
              if(func.insetar(p))

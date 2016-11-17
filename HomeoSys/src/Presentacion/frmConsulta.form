@@ -259,7 +259,7 @@
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_search-icon-light-grey-hi_1 (1).png"/>
+                  <Image iconType="3" name="/Files/rsz_search-icon-light-grey-hi_1 (1).png"/>
                 </Property>
               </Properties>
             </Component>
@@ -272,10 +272,13 @@
                   <Color blue="7" green="72" red="0" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_1plus-5-xxl.png"/>
+                  <Image iconType="3" name="/Files/rsz_1plus-5-xxl.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel10MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField2">
               <Properties>
@@ -383,7 +386,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_21logo.png"/>
+              <Image iconType="3" name="/Files/rsz_21logo.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -401,13 +404,13 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_plus-icon.png"/>
+              <Image iconType="3" name="/Files/rsz_1plus-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nueva consulta"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="500" width="-1" height="-1"/>
+              <AbsoluteConstraints x="20" y="490" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -420,7 +423,7 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_2list_3600.png"/>
+              <Image iconType="3" name="/Files/rsz_2list_3600.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Lista de pacientes"/>
           </Properties>
@@ -446,13 +449,13 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_plus-icon.png"/>
+              <Image iconType="3" name="/Files/rsz_1plus-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nueva consulta"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="270" width="-1" height="-1"/>
+              <AbsoluteConstraints x="20" y="260" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -465,13 +468,13 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Matud\Downloads\rsz_plus-icon.png"/>
+              <Image iconType="3" name="/Files/rsz_1plus-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Homeopatia"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="380" width="-1" height="-1"/>
+              <AbsoluteConstraints x="20" y="370" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

@@ -102,12 +102,17 @@ public class frmConsulta extends javax.swing.JFrame {
         jButton2.setText("Editar Seleccionado");
         jButton2.setBorderPainted(false);
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_search-icon-light-grey-hi_1 (1).png")); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_search-icon-light-grey-hi_1 (1).png"))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 114, 7));
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_1plus-5-xxl.png")); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_1plus-5-xxl.png"))); // NOI18N
         jLabel10.setText("Nuevo");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextField2.setText("Paciente..");
@@ -192,33 +197,33 @@ public class frmConsulta extends javax.swing.JFrame {
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 160, 20));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, 20));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_21logo.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_21logo.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_plus-icon.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_1plus-icon.png"))); // NOI18N
         jLabel2.setText("Nueva consulta");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_2list_3600.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_2list_3600.png"))); // NOI18N
         jLabel3.setText("Lista de pacientes");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 160, 20));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_plus-icon.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_1plus-icon.png"))); // NOI18N
         jLabel6.setText("Nueva consulta");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_plus-icon.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_1plus-icon.png"))); // NOI18N
         jLabel7.setText("Homeopatia");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 630));
 
@@ -228,6 +233,17 @@ public class frmConsulta extends javax.swing.JFrame {
     private void jTablepacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablepacientesMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTablepacientesMouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+         dlgNuevoPaciente dialog = new dlgNuevoPaciente(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments

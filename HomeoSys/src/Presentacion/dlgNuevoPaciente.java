@@ -54,8 +54,6 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
         jPanel4.setBackground(new java.awt.Color(40, 56, 73));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -85,7 +83,7 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
 
         jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 570, 80));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_21logo.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_21logo.png"))); // NOI18N
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 150, -1));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -171,7 +169,7 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 430, 90));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matud\\Downloads\\rsz_save-xxl.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_save-xxl.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 130, 80));
 
@@ -192,7 +190,7 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code  here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
