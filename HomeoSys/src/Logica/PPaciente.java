@@ -30,7 +30,7 @@ public class PPaciente {
     {
         DefaultTableModel modelo;
         
-        String [] titulos= {"cedula","nombre","direccion","localidad","telefono","celular","edad","fecha"};
+        String [] titulos= {"cedula","nombre","direccion","localidad","telefono","celular","edad"};
         
         String[] registro= new String[8];
         
@@ -52,7 +52,7 @@ public class PPaciente {
                 registro[4]=rs.getString("telefono");
                 registro[5]=rs.getString("celular");
                 registro[6]=rs.getString("edad");
-                registro[7]=rs.getString("fecha");
+              //  registro[7]=rs.getString("fecha");
                 
                 totalregistros = totalregistros+1;
                 modelo.addRow(registro);
@@ -69,8 +69,8 @@ public class PPaciente {
     { 
             /*sSQL =" insert into paciente {cedula,nombre,direccion,localidad,telefono,celular,edad,fecha}"+
                 "values{?,?,?,?,?,?,?,?}";*/
-        sSQL =" insert into paciente (cedula,nombre,direccion,localidad,telefono,celular,edad,fecha)"+
-                "values(?,?,?,?,?,?,?,?)";
+        sSQL =" insert into paciente (cedula,nombre,direccion,localidad,telefono,celular,edad)"+
+                "values(?,?,?,?,?,?,?)";
         try 
         {
             PreparedStatement pst=cmd.prepareStatement(sSQL);
@@ -81,7 +81,7 @@ public class PPaciente {
             pst.setInt(5, dts.getTelefono());
             pst.setInt(6, dts.getCelular());
             pst.setInt(7, dts.getEdad());
-            pst.setDate(8, dts.getFecha());
+           // pst.setDate(8, dts.getFecha());
             
             int n = pst.executeUpdate();
             
@@ -103,7 +103,7 @@ public class PPaciente {
     
     public boolean editar(Paciente dts)
     { 
-        sSQL ="update paciente set nombre=?,direccion=?,localidad=?,telefono=?,celular=?,edad=?,fecha=?"+
+        sSQL ="update paciente set nombre=?,direccion=?,localidad=?,telefono=?,celular=?,edad=?"+
                 "where cedula=?";
         try 
         {
@@ -115,7 +115,7 @@ public class PPaciente {
             pst.setInt(4, dts.getTelefono());
             pst.setInt(5, dts.getCelular());
             pst.setInt(6, dts.getEdad());
-            pst.setDate(7, dts.getFecha());
+           // pst.setDate(7, dts.getFecha());
             pst.setInt(8, dts.getCedula());
             
             int n = pst.executeUpdate();

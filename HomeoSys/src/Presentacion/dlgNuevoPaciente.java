@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package Presentacion;
+import Datos.Paciente;
+import Logica.PPaciente;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +23,19 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    private String accion="guardar";
+    
+     void mostrar(String buscar)
+    {
+        try {
+            DefaultTableModel modelo;
+            PPaciente func = new PPaciente();
+            modelo= func.mostrar(buscar);
+            
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(rootPane, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,12 +50,12 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtcedula = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
+        txtlocalidad = new javax.swing.JTextField();
+        txttelefono = new javax.swing.JTextField();
+        txtdireccion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -46,8 +63,8 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtcelular = new javax.swing.JTextField();
+        txtedad = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -90,28 +107,28 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtcedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtcedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtcedulaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 160, 30));
+        jPanel1.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 160, 30));
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 150, 30));
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 280, 30));
+        txtnombre.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 280, 30));
 
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 280, 30));
+        txtlocalidad.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.add(txtlocalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 280, 30));
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 150, 150, 30));
+        txttelefono.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 150, 150, 30));
 
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 280, 30));
+        txtdireccion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.add(txtdireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 280, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -148,11 +165,11 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jLabel9.setText("Celular");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 80, -1));
 
-        jTextField7.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, 150, 30));
+        txtcelular.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.add(txtcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, 150, 30));
 
-        jTextField8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 40, 30));
+        txtedad.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.add(txtedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 40, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
@@ -173,6 +190,11 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_save-xxl.png"))); // NOI18N
         jButton2.setBorderPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 130, 80));
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 800, 450));
@@ -191,9 +213,59 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedulaActionPerformed
         // TODO add your handling code  here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtcedulaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         if(txtcedula.getText().length()==0)
+        {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cedula de identidad");
+            txtcedula.requestFocus();
+            return;
+        }
+         if(txtnombre.getText().length()==0)
+        {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cun nombre de paciente");
+            txtnombre.requestFocus();
+            return;
+        }
+         Paciente p = new Paciente();
+         PPaciente func  = new PPaciente();
+         
+         p.setCedula(Integer.parseInt(txtcedula.getText()));
+         p.setNombre(txtnombre.getText());
+         p.setEdad(Integer.parseInt(txtedad.getText()));
+         p.setDireccion(txtdireccion.getText());
+         p.setLocalidad(txtlocalidad.getText());
+         p.setTelefono(Integer.parseInt(txttelefono.getText()));
+         p.setCelular(Integer.parseInt(txtcelular.getText()));
+         
+         Calendar cal;
+         int d,m,a;
+      
+         
+         if(accion.equals("guardar")){
+             if(func.insetar(p))
+             {
+                 JOptionPane.showMessageDialog(rootPane,"El paciente se guardo correctamente");
+                 mostrar("");
+             }
+         }
+         else if(accion.equals("editar"))
+         {
+             p.setCedula(Integer.parseInt(txtcedula.getText()));
+             
+             
+             if(func.editar(p))
+             {
+                 JOptionPane.showMessageDialog(rootPane,"El paciente fue editado correctamente");
+                 mostrar("");
+             }
+         }
+         
+   
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,13 +328,13 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txtcedula;
+    private javax.swing.JTextField txtcelular;
+    private javax.swing.JTextField txtdireccion;
+    private javax.swing.JTextField txtedad;
+    private javax.swing.JTextField txtlocalidad;
+    private javax.swing.JTextField txtnombre;
+    private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
 }

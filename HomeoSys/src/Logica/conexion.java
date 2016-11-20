@@ -19,7 +19,7 @@ public class conexion {
     public String db="HomeoSys";
     public String url="jdbc:mysql://127.0.0.1/"+db;
     public String user="root";
-    public String password="Ssqns0.";
+    public String password="root";
 
     public conexion() {
     }
