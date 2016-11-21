@@ -71,7 +71,7 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(40, 56, 73));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -302,7 +302,7 @@ public class dlgNuevoPaciente extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                        System.exit(0); 
                     }
                 });
                 dialog.setVisible(true);
