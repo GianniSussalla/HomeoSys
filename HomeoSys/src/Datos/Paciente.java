@@ -21,9 +21,9 @@ public class Paciente {
     private int telefono;
     private int celular;
     private int edad;
-    private Date fecha;
+   // private Date fecha;
 
-    public Paciente(int cedula, String nombre, String direccion, String localidad, int telefono, int celular, int edad, Date fecha) {
+    public Paciente(int cedula, String nombre, String direccion, String localidad, int telefono, int celular, int edad) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -31,7 +31,7 @@ public class Paciente {
         this.telefono = telefono;
         this.celular = celular;
         this.edad = edad;
-        this.fecha = fecha;
+ //       this.fecha = fecha;
     }
 
     public Paciente() {
@@ -93,13 +93,13 @@ public class Paciente {
         this.edad = edad;
     }
 
-    public Date getFecha() {
+    /*public Date getFecha() {
         return fecha;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+        this.fecha = fecha;*/
+    
     
     
     
