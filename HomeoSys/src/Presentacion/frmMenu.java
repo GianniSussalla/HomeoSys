@@ -437,7 +437,13 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTablepacientesMouseClicked
 
     private void lblNuevoPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoPacienteMouseClicked
-            frmNuevoPaciente dialog = new frmNuevoPaciente();
+            dlgNuevoPaciente dialog = new dlgNuevoPaciente(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
             dialog.setVisible(true);
     }//GEN-LAST:event_lblNuevoPacienteMouseClicked
 
