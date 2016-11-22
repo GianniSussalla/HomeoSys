@@ -36,9 +36,7 @@ public class frmHomeopatia extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jLabel5 = new javax.swing.JLabel();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -131,13 +129,11 @@ public class frmHomeopatia extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 640, 200));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 640, 20));
-        jPanel2.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 120, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Edad");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 50, 30));
-        jPanel2.add(jXDatePicker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 130, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -374,6 +370,7 @@ public class frmHomeopatia extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmHomeopatia().setVisible(true);
+                //hola
             }
         });
     }
@@ -433,7 +430,5 @@ public class frmHomeopatia extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     // End of variables declaration//GEN-END:variables
 }
