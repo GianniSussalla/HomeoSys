@@ -80,8 +80,6 @@ public class frmHomeopatia extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -321,8 +319,6 @@ public class frmHomeopatia extends javax.swing.JFrame {
         jButton8.setText("Ver Informe");
         jButton8.setBorderPainted(false);
         jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 720, 140, -1));
-        jPanel2.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 170, 30));
-        jPanel2.add(jXDatePicker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 32, 170, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 1270, 770));
 
@@ -374,6 +370,7 @@ public class frmHomeopatia extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmHomeopatia().setVisible(true);
+                //hola
             }
         });
     }
@@ -433,7 +430,5 @@ public class frmHomeopatia extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     // End of variables declaration//GEN-END:variables
 }
