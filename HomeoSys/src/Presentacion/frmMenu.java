@@ -53,7 +53,6 @@ public class frmMenu extends javax.swing.JFrame {
         lblListaPacientes = new javax.swing.JLabel();
         lblNuevaConsulta = new javax.swing.JLabel();
         pnlNuevaConsulta = new javax.swing.JPanel();
-        dpFechaConsulta = new org.jdesktop.swingx.JXDatePicker();
         jLabel3 = new javax.swing.JLabel();
         txtEdadConsulta = new javax.swing.JTextField();
         lblSearchConsulta = new javax.swing.JLabel();
@@ -105,10 +104,8 @@ public class frmMenu extends javax.swing.JFrame {
                 "Nombre", "CI", "Edad", "Localidad"
             }
         ));
-        jTablepacientes.setCellSelectionEnabled(false);
         jTablepacientes.setGridColor(new java.awt.Color(255, 69, 3));
         jTablepacientes.setRowHeight(30);
-        jTablepacientes.setRowSelectionAllowed(true);
         jTablepacientes.setSelectionBackground(new java.awt.Color(255, 221, 155));
         jTablepacientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTablepacientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -306,15 +303,6 @@ public class frmMenu extends javax.swing.JFrame {
 
         pnlNuevaConsulta.setBackground(new java.awt.Color(255, 255, 255));
         pnlNuevaConsulta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        dpFechaConsulta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        dpFechaConsulta.setNextFocusableComponent(txtNombreConsulta);
-        dpFechaConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dpFechaConsultaActionPerformed(evt);
-            }
-        });
-        pnlNuevaConsulta.add(dpFechaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 180, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Fecha");
@@ -601,7 +589,6 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNuevaConsulta;
     private javax.swing.JButton btnSiguiente;
-    private org.jdesktop.swingx.JXDatePicker dpFechaConsulta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
