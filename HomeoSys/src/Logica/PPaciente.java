@@ -7,10 +7,16 @@ package Logica;
 
 
 import Datos.Paciente;
+import Presentacion.frmNuevoPaciente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +25,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Usuario
  */
 public class PPaciente {
-    
+    private static PPaciente instancia = null;
+    public static PPaciente getInstancia() {
+        if (instancia == null) {
+            instancia = new PPaciente();
+        }
+        return instancia;
+    }
     private conexion mysql = new conexion();
     private Connection cmd =mysql.conectar();
     private String sSQL="";
@@ -30,7 +42,7 @@ public class PPaciente {
     {
         DefaultTableModel modelo;
         
-        String [] titulos= {"cedula","nombre","direccion","localidad","telefono","celular","edad"};
+        String [] titulos= {"cedula","nombre","direccion","localidad","telefono","celular","edad,fecha"};
         
         String[] registro= new String[8];
         
@@ -67,10 +79,9 @@ public class PPaciente {
     }
     public boolean insetar(Paciente dts)
     { 
-            /*sSQL =" insert into paciente {cedula,nombre,direccion,localidad,telefono,celular,edad,fecha}"+
-                "values{?,?,?,?,?,?,?,?}";*/
-        sSQL =" insert into paciente (cedula,nombre,direccion,localidad,telefono,celular,edad)"+
-                "values(?,?,?,?,?,?,?)";
+            
+        sSQL =" insert into paciente (cedula,nombre,direccion,localidad,telefono,celular,edad,fecha)"+
+                "values(?,?,?,?,?,?,?,?)";
         try 
         {
             PreparedStatement pst=cmd.prepareStatement(sSQL);
@@ -81,7 +92,10 @@ public class PPaciente {
             pst.setInt(5, dts.getTelefono());
             pst.setInt(6, dts.getCelular());
             pst.setInt(7, dts.getEdad());
-           // pst.setDate(8, dts.getFecha());
+           java.util.Date fecha = null;
+           fecha = (dts.getFecha());
+                java.sql.Date fechaP= new java.sql.Date(fecha.getTime());
+                pst.setDate(8, fechaP);
             
             int n = pst.executeUpdate();
             
@@ -157,5 +171,30 @@ public class PPaciente {
             return false;
         }
     }
+ 
+    public List<Paciente> getPaciente() {
+        List<Paciente> lista = new ArrayList<Paciente>();
+        Paciente p = null;
+        try {
+            Connection conex = conexion.getInstancia().getConexion();
+            PreparedStatement pst=cmd.prepareStatement(sSQL);
+            ResultSet res = pst.executeQuery("select * from paciente");
+            while (res.next()) {
+                p = new Paciente();
+              p.setCedula(res.getInt("cedula"));
+              p.setNombre(res.getString("nombre"));
+              p.setLocalidad(res.getString("localidad"));
+              p.setEdad(res.getInt("edad"));
+                lista.add(p);
+                
             
-}
+            }
+            res.close();
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return lista;
+    }
+   
+            
+ }

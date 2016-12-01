@@ -7,6 +7,10 @@ package Presentacion;
 
 import Datos.Paciente;
 import Logica.PPaciente;
+import Logica.conexion;
+import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,26 +20,72 @@ import javax.swing.table.DefaultTableModel;
  * @author Matud
  */
 public class frmNuevoPaciente extends javax.swing.JFrame {
-
+    
+    
+    
     /**
      * Creates new form frmNuevoPaciente
      */
     public frmNuevoPaciente() {
+        
         initComponents();
     }
-    private String accion="guardar";
+    
+    private String accion = "guardar";
 
-     void mostrar(String buscar)
-    {
+    void mostrar(String buscar) {
         try {
             DefaultTableModel modelo;
             PPaciente func = new PPaciente();
-            modelo= func.mostrar(buscar);
-            
+            modelo = func.mostrar(buscar);
+
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(rootPane, e);
         }
     }
+
+    void guardar() {
+        if (txtcedula.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cedula de identidad");
+            txtcedula.requestFocus();
+            return;
+        }
+        if (txtnombre.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un nombre de paciente");
+            txtnombre.requestFocus();
+            return;
+        }
+        
+        Paciente p = new Paciente();
+        PPaciente func = new PPaciente();
+
+        p.setCedula(Integer.parseInt(txtcedula.getText()));
+        p.setNombre(txtnombre.getText());
+        p.setEdad(Integer.parseInt(txtedad.getText()));
+        p.setDireccion(txtdireccion.getText());
+        p.setLocalidad(txtlocalidad.getText());
+        p.setTelefono(Integer.parseInt(txttelefono.getText()));
+        p.setCelular(Integer.parseInt(txtcelular.getText()));
+        p.setFecha(dpFechaPaciente.getDate());
+
+        Calendar cal;
+        int d, m, a;
+
+        if (accion.equals("guardar")) {
+            if (func.insetar(p)) {
+                JOptionPane.showMessageDialog(rootPane, "El paciente se guardo correctamente");
+                mostrar("");
+            }
+        } else if (accion.equals("editar")) {
+            p.setCedula(Integer.parseInt(txtcedula.getText()));
+
+            if (func.editar(p)) {
+                JOptionPane.showMessageDialog(rootPane, "El paciente fue editado correctamente");
+                mostrar("");
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +101,6 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtcedula = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
         txtlocalidad = new javax.swing.JTextField();
         txttelefono = new javax.swing.JTextField();
@@ -70,6 +119,8 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
+        dpFechaPaciente = new org.jdesktop.swingx.JXDatePicker();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,9 +165,6 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 160, 30));
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 150, 30));
 
         txtnombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 280, 30));
@@ -197,6 +245,15 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 130, 80));
+        jPanel1.add(dpFechaPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 170, 30));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 20, 20));
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 800, 450));
 
@@ -219,51 +276,14 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcedulaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(txtcedula.getText().length()==0)
-        {
-            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cedula de identidad");
-            txtcedula.requestFocus();
-            return;
-        }
-        if(txtnombre.getText().length()==0)
-        {
-            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cun nombre de paciente");
-            txtnombre.requestFocus();
-            return;
-        }
-        Paciente p = new Paciente();
-        PPaciente func  = new PPaciente();
-
-        p.setCedula(Integer.parseInt(txtcedula.getText()));
-        p.setNombre(txtnombre.getText());
-        p.setEdad(Integer.parseInt(txtedad.getText()));
-        p.setDireccion(txtdireccion.getText());
-        p.setLocalidad(txtlocalidad.getText());
-        p.setTelefono(Integer.parseInt(txttelefono.getText()));
-        p.setCelular(Integer.parseInt(txtcelular.getText()));
-
-        Calendar cal;
-        int d,m,a;
-
-        if(accion.equals("guardar")){
-            if(func.insetar(p))
-            {
-                JOptionPane.showMessageDialog(rootPane,"El paciente se guardo correctamente");
-                mostrar("");
-            }
-        }
-        else if(accion.equals("editar"))
-        {
-            p.setCedula(Integer.parseInt(txtcedula.getText()));
-
-            if(func.editar(p))
-            {
-                JOptionPane.showMessageDialog(rootPane,"El paciente fue editado correctamente");
-                mostrar("");
-            }
-        }
+        guardar();
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            frmLocalidad dialog = new frmLocalidad();
+            dialog.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,6 +321,8 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker dpFechaPaciente;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -318,7 +340,6 @@ public class frmNuevoPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtcelular;
     private javax.swing.JTextField txtdireccion;

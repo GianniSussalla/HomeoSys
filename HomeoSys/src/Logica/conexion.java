@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,7 +16,17 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class conexion {
-    
+    Connection conexion = null;
+    private static conexion instancia = null;
+    public Connection getConexion() {
+        return conexion;
+    }
+    public static conexion getInstancia() {
+        if (instancia == null) {
+            instancia = new conexion();
+        }
+        return instancia;
+    }
     public String db="HomeoSys";
     public String url="jdbc:mysql://127.0.0.1/"+db;
     public String user="root";

@@ -5,25 +5,65 @@
  */
 package Presentacion;
 
+import Datos.Paciente;
+import Logica.PPaciente;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import java.util.logging.*;
 
 /**
  *
  * @author Matud
  */
 public class frmMenu extends javax.swing.JFrame {
-
+     static DefaultTableModel modeloTabla = new DefaultTableModel();
     /**
      * Creates new form frmConsulta
      */
     public frmMenu() {
+        
         initComponents();
         pnlListaPacientes.setVisible(true);
         pnlNuevaConsulta.setVisible(false);
+        actualizarTabla();
     }
-
+   
+    void actualizarTabla() {
+        modeloTabla = (DefaultTableModel) jTablepacientes.getModel();
+        // Habitacion h=new Habitacion();
+        List<Paciente> lista = new ArrayList<Paciente>();
+        lista = PPaciente.getInstancia().getPaciente();
+        Object[] fila = new Object[20];
+        for (int i = jTablepacientes.getRowCount() - 1; i >= 0; i--) {
+            modeloTabla.removeRow(i);  
+        }
+        
+        for (Paciente p : lista) {
+            fila[0] = p.getNombre();
+            fila[1] = p.getCedula();
+            fila[2] = p.getEdad();
+            fila[3] = p.getLocalidad();
+            modeloTabla.addRow(fila);
+        }
+    }
+       
+        
+    
+    //static DefaultTableModel modeloTabla = new DefaultTableModel();
+    void MostrarTablaPaciente() {
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,8 +126,6 @@ public class frmMenu extends javax.swing.JFrame {
         jTablepacientes.setForeground(new java.awt.Color(51, 51, 51));
         jTablepacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"pepe", "13214", "122", "bella union"},
-                {"roberto", "121245", "11", null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -104,6 +142,7 @@ public class frmMenu extends javax.swing.JFrame {
                 "Nombre", "CI", "Edad", "Localidad"
             }
         ));
+        jTablepacientes.setColumnSelectionAllowed(true);
         jTablepacientes.setGridColor(new java.awt.Color(255, 69, 3));
         jTablepacientes.setRowHeight(30);
         jTablepacientes.setSelectionBackground(new java.awt.Color(255, 221, 155));
@@ -206,7 +245,7 @@ public class frmMenu extends javax.swing.JFrame {
                         .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSearchPaciente)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -496,6 +535,7 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_dpFechaConsultaActionPerformed
 
     private void lblSearchPacienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchPacienteMouseEntered
+        
         Border border = LineBorder.createGrayLineBorder();
         
         lblSearchPaciente.setBorder(border);         
