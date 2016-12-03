@@ -5,6 +5,9 @@
  */
 package Presentacion;
 
+import Datos.Consulta;
+import Logica.PConsulta;
+import Logica.PPaciente;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -16,6 +19,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import static jdk.nashorn.internal.objects.NativeRegExp.source;
 
 /**
@@ -31,6 +35,20 @@ public class frmMenu extends javax.swing.JFrame {
         initComponents();
         pnlListaPacientes.setVisible(true);
         pnlNuevaConsulta.setVisible(false);
+    }
+    
+     private String accion="guardar";
+    
+     void mostrar(String buscar)
+    {
+        try {
+            DefaultTableModel modelo;
+            PPaciente func = new PPaciente();
+            modelo= func.mostrar(buscar);
+            
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(rootPane, e);
+        }
     }
     public void guardarConsulta()
     {
@@ -212,7 +230,7 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txaConsulta = new javax.swing.JTextArea();
+        txtConsulta = new javax.swing.JTextArea();
         txtNombreConsulta = new javax.swing.JTextField();
         btnHomeopatia = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
@@ -224,7 +242,7 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnGuardarConsulta = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        dpfechaConsulta = new org.jdesktop.swingx.JXDatePicker();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -466,7 +484,7 @@ public class frmMenu extends javax.swing.JFrame {
         pnlNuevaConsulta.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 36, 62, -1));
 
         txtEdadConsulta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEdadConsulta.setNextFocusableComponent(txaConsulta);
+        txtEdadConsulta.setNextFocusableComponent(txtConsulta);
         pnlNuevaConsulta.add(txtEdadConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 50, 40));
 
         lblSearchConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_search-icon-light-grey-hi_1 (1).png"))); // NOI18N
@@ -498,9 +516,9 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel7.setText("Nombre");
         pnlNuevaConsulta.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 90, -1));
 
-        txaConsulta.setColumns(20);
-        txaConsulta.setRows(5);
-        jScrollPane2.setViewportView(txaConsulta);
+        txtConsulta.setColumns(20);
+        txtConsulta.setRows(5);
+        jScrollPane2.setViewportView(txtConsulta);
 
         pnlNuevaConsulta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 690, 240));
 
@@ -565,7 +583,7 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Edad");
         pnlNuevaConsulta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 90, -1));
-        pnlNuevaConsulta.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 160, 40));
+        pnlNuevaConsulta.add(dpfechaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 160, 40));
 
         jPanel1.add(pnlNuevaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 990, 470));
 
@@ -740,7 +758,7 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConsultaActionPerformed
-        // TODO add your handling code here:
+        guardarConsulta();
     }//GEN-LAST:event_btnGuardarConsultaActionPerformed
 
     /**
@@ -786,6 +804,7 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNuevaConsulta;
     private javax.swing.JButton btnSiguiente;
+    private org.jdesktop.swingx.JXDatePicker dpfechaConsulta;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -810,7 +829,6 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTablepacientes;
     private javax.swing.JTextField jTextField2;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lblListaPacientes;
     private javax.swing.JLabel lblNuevaConsulta;
     private javax.swing.JLabel lblNuevoPaciente;
@@ -819,8 +837,8 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlListaPacientes;
     private javax.swing.JPanel pnlNuevaConsulta;
-    private javax.swing.JTextArea txaConsulta;
     private javax.swing.JTextField txtCiConsulta;
+    private javax.swing.JTextArea txtConsulta;
     private javax.swing.JTextField txtEdadConsulta;
     private javax.swing.JTextField txtNombreConsulta;
     // End of variables declaration//GEN-END:variables
