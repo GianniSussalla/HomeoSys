@@ -5,9 +5,18 @@
  */
 package Presentacion;
 
-import javax.swing.border.BevelBorder;
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javafx.stage.FileChooser;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import static jdk.nashorn.internal.objects.NativeRegExp.source;
 
 /**
  *
@@ -24,6 +33,85 @@ public class frmMenu extends javax.swing.JFrame {
         pnlNuevaConsulta.setVisible(false);
     }
 
+    boolean respaldarBD() {
+        boolean status = false;
+        try {
+            Process p = null;
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = new Date();
+            String database = "homeosys";
+            String host = "localhost";
+            String filepath = "backup-" + database + "-" + host + "-(" + dateFormat.format(date) + ").sql";
+
+            String batchCommand = "";
+            String password = "root";
+            String port = "3306";
+            String backupPath = "";
+            String dumpExePath = "C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysqldump";
+            String user = "root";
+
+            fileChooser.setSelectedFile(new File(filepath));
+            fileChooser.setVisible(true);
+
+            int result = fileChooser.showSaveDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                filepath = fileChooser.getSelectedFile().toString();
+                if (password != "") {
+                    batchCommand = dumpExePath + " -h " + host + " --port " + port + " -u " + user + " --password=" + password + " " + database + " -r \"" + backupPath + "" + filepath + "\"";
+                } else {
+                    batchCommand = dumpExePath + " -h " + host + " --port " + port + " -u " + user + " " + database + " -r \"" + backupPath + "" + filepath + "\"";
+                }
+
+                Runtime runtime = Runtime.getRuntime();
+                p = runtime.exec(batchCommand);
+                int processComplete = p.waitFor();
+
+                if (processComplete == 0) {
+                    status = true;
+                } else {
+                    status = false;
+                }
+            }
+
+        } catch (IOException ioe) {
+            System.out.println(ioe.toString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    
+    public boolean restaaurarBD(){
+        String dbPassword = "root";
+        String dbUserName = "root";
+        String source = null;
+        fileChooser.setVisible(true);
+
+            int result = fileChooser.showSaveDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                source = fileChooser.getSelectedFile().toString();
+                String[] executeCmd = new String[]{"C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql",  "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
+
+                Process runtimeProcess;
+                try {
+                    runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+                    int processComplete = runtimeProcess.waitFor();
+
+                    if (processComplete == 0) {
+                        return true;
+                    } else {
+                    }
+                } catch (Exception ex) {
+                    System.err.println(ex);
+        }
+            }else{
+                
+            }
+        return false;
+ 
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +121,7 @@ public class frmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileChooser = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         pnlListaPacientes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,6 +161,9 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnGuardarConsulta = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -174,23 +266,25 @@ public class frmMenu extends javax.swing.JFrame {
         pnlListaPacientesLayout.setHorizontalGroup(
             pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlListaPacientesLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlListaPacientesLayout.createSequentialGroup()
+                .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListaPacientesLayout.createSequentialGroup()
+                        .addContainerGap(53, Short.MAX_VALUE)
+                        .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlListaPacientesLayout.createSequentialGroup()
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblSearchPaciente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNuevoPaciente))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 884, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListaPacientesLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2))
-                    .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnlListaPacientesLayout.createSequentialGroup()
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(lblSearchPaciente)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNuevoPaciente))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 884, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(2, 2, 2)))
                 .addGap(53, 53, 53))
         );
         pnlListaPacientesLayout.setVerticalGroup(
@@ -208,7 +302,7 @@ public class frmMenu extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(389, 389, 389)
                 .addGroup(pnlListaPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -246,8 +340,8 @@ public class frmMenu extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Los pibes software");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 600, -1, -1));
+        jLabel5.setText("HomeoManager v. beta 1.2");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 600, -1, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 160, -1));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 160, 20));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 160, 20));
@@ -403,14 +497,31 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Edad");
         pnlNuevaConsulta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 90, -1));
+        pnlNuevaConsulta.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 160, 40));
 
         jPanel1.add(pnlNuevaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 990, 470));
+
+        jPanel4.setBackground(new java.awt.Color(255, 69, 3));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_database.png"))); // NOI18N
+        jLabel1.setText("Base de Datos");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 170, 60));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 10, 220, 90));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1190, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,8 +536,8 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTablepacientesMouseClicked
 
     private void lblNuevoPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoPacienteMouseClicked
-            frmNuevoPaciente dialog = new frmNuevoPaciente();
-            dialog.setVisible(true);
+        frmNuevoPaciente dialog = new frmNuevoPaciente();
+        dialog.setVisible(true);
     }//GEN-LAST:event_lblNuevoPacienteMouseClicked
 
     private void lblNuevaConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevaConsultaMouseClicked
@@ -442,7 +553,7 @@ public class frmMenu extends javax.swing.JFrame {
 
     private void lblNuevoPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoPacienteMousePressed
         Border border = LineBorder.createGrayLineBorder();
-        lblNuevoPaciente.setBorder(border);        
+        lblNuevoPaciente.setBorder(border);
     }//GEN-LAST:event_lblNuevoPacienteMousePressed
 
     private void lblListaPacientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMousePressed
@@ -451,12 +562,12 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_lblListaPacientesMousePressed
 
     private void lblListaPacientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseReleased
-        lblListaPacientes.setBorder(null);         
+        lblListaPacientes.setBorder(null);
     }//GEN-LAST:event_lblListaPacientesMouseReleased
 
     private void lblListaPacientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseEntered
         Border border = LineBorder.createGrayLineBorder();
-        lblListaPacientes.setBorder(border);        
+        lblListaPacientes.setBorder(border);
     }//GEN-LAST:event_lblListaPacientesMouseEntered
 
     private void lblListaPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseClicked
@@ -475,15 +586,15 @@ public class frmMenu extends javax.swing.JFrame {
 
     private void lblNuevaConsultaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevaConsultaMouseEntered
         Border border = LineBorder.createGrayLineBorder();
-        lblNuevaConsulta.setBorder(border);            
+        lblNuevaConsulta.setBorder(border);
     }//GEN-LAST:event_lblNuevaConsultaMouseEntered
 
     private void lblNuevaConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevaConsultaMouseExited
-        lblNuevaConsulta.setBorder(null);           
+        lblNuevaConsulta.setBorder(null);
     }//GEN-LAST:event_lblNuevaConsultaMouseExited
 
     private void lblNuevaConsultaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevaConsultaMouseReleased
-        lblNuevaConsulta.setBorder(null);            
+        lblNuevaConsulta.setBorder(null);
     }//GEN-LAST:event_lblNuevaConsultaMouseReleased
 
     private void btnHomeopatiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeopatiaActionPerformed
@@ -497,49 +608,68 @@ public class frmMenu extends javax.swing.JFrame {
 
     private void lblSearchPacienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchPacienteMouseEntered
         Border border = LineBorder.createGrayLineBorder();
-        
-        lblSearchPaciente.setBorder(border);         
+
+        lblSearchPaciente.setBorder(border);
     }//GEN-LAST:event_lblSearchPacienteMouseEntered
 
     private void lblNuevoPacienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoPacienteMouseEntered
         Border border = LineBorder.createGrayLineBorder();
-        lblNuevoPaciente.setBorder(border);          
+        lblNuevoPaciente.setBorder(border);
     }//GEN-LAST:event_lblNuevoPacienteMouseEntered
 
     private void lblSearchConsultaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseEntered
         Border border = LineBorder.createGrayLineBorder();
-        lblSearchConsulta.setBorder(border);  
+        lblSearchConsulta.setBorder(border);
     }//GEN-LAST:event_lblSearchConsultaMouseEntered
 
     private void lblSearchConsultaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMousePressed
         Border border = LineBorder.createGrayLineBorder();
-        lblSearchConsulta.setBorder(border);  
+        lblSearchConsulta.setBorder(border);
     }//GEN-LAST:event_lblSearchConsultaMousePressed
 
     private void lblSearchPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchPacienteMousePressed
         Border border = LineBorder.createGrayLineBorder();
-        lblSearchPaciente.setBorder(border); 
+        lblSearchPaciente.setBorder(border);
     }//GEN-LAST:event_lblSearchPacienteMousePressed
 
     private void lblNuevoPacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoPacienteMouseExited
-        lblNuevoPaciente.setBorder(null); 
+        lblNuevoPaciente.setBorder(null);
     }//GEN-LAST:event_lblNuevoPacienteMouseExited
 
     private void lblSearchPacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchPacienteMouseExited
-        lblSearchPaciente.setBorder(null); 
+        lblSearchPaciente.setBorder(null);
     }//GEN-LAST:event_lblSearchPacienteMouseExited
 
     private void lblSearchPacienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchPacienteMouseReleased
-        lblSearchPaciente.setBorder(null); 
+        lblSearchPaciente.setBorder(null);
     }//GEN-LAST:event_lblSearchPacienteMouseReleased
 
     private void lblSearchConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseExited
-       lblSearchConsulta.setBorder(null); 
+        lblSearchConsulta.setBorder(null);
     }//GEN-LAST:event_lblSearchConsultaMouseExited
 
     private void lblSearchConsultaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseReleased
-        lblSearchConsulta.setBorder(null); 
+        lblSearchConsulta.setBorder(null);
     }//GEN-LAST:event_lblSearchConsultaMouseReleased
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        String[] list = {"Restaurar", "Respaldar"};
+        JComboBox jcb = new JComboBox(list);
+        jcb.setEditable(true);
+        int option = JOptionPane.showConfirmDialog(null, jcb, "Elija la opción deseada", JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION) {
+            if (jcb.getSelectedItem().equals("Respaldar")) {
+                respaldarBD();
+            } else {
+                restaaurarBD();
+            }
+        } else {
+            System.out.println("No");
+        }
+
+
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -584,9 +714,11 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNuevaConsulta;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -598,6 +730,7 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -605,6 +738,7 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTablepacientes;
     private javax.swing.JTextField jTextField2;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lblListaPacientes;
     private javax.swing.JLabel lblNuevaConsulta;
     private javax.swing.JLabel lblNuevoPaciente;

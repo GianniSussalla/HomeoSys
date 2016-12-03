@@ -80,6 +80,7 @@ public class frmHomeopatia extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -189,7 +190,7 @@ public class frmHomeopatia extends javax.swing.JFrame {
 
         jRadioButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRadioButton8.setForeground(new java.awt.Color(102, 102, 102));
-        jRadioButton8.setText("1 a 3: 9 Gotas - 4: 10 GGotas");
+        jRadioButton8.setText("1 a 3: 9 Gotas - 4: 10 Gotas");
         jPanel5.add(jRadioButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
         jRadioButton10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -319,6 +320,7 @@ public class frmHomeopatia extends javax.swing.JFrame {
         jButton8.setText("Ver Informe");
         jButton8.setBorderPainted(false);
         jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 720, 140, -1));
+        jPanel2.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 170, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 1270, 770));
 
@@ -430,5 +432,6 @@ public class frmHomeopatia extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     // End of variables declaration//GEN-END:variables
 }
