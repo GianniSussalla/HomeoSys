@@ -5,9 +5,18 @@
  */
 package Presentacion;
 
+import Datos.Consulta;
+import Logica.PConsulta;
+import Logica.PPaciente;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import java.util.*;
 
 /**
  *
@@ -23,7 +32,85 @@ public class frmMenu extends javax.swing.JFrame {
         pnlListaPacientes.setVisible(true);
         pnlNuevaConsulta.setVisible(false);
     }
-
+    
+    private String accion="guardar";
+    
+    
+     void mostrar(String buscar)
+    {
+        try {
+            DefaultTableModel modelo;
+            PPaciente func = new PPaciente();
+            modelo= func.mostrar(buscar);
+            
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(rootPane, e);
+        }
+    }
+    
+    public void guardarConsulta()
+    {
+         if(txtCiConsulta.getText().length()==0)
+        {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cedula de identidad");
+            txtCiConsulta.requestFocus();
+            return;
+        }
+         
+         if(txtNombreConsulta.getText().length()==0)
+        {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un nombre de consulta");
+            txtNombreConsulta.requestFocus();
+            return;
+        }
+         
+         Consulta c = new Consulta();
+         PConsulta func = new PConsulta();
+         c.setFecha(dpfechaConsulta.getDate());
+         c.setNombre(txtNombreConsulta.getText());
+         c.setEdad(Integer.parseInt(txtEdadConsulta.getText()));
+         c.setCedula(Integer.parseInt(txtCiConsulta.getText()));
+         c.setObservaciones(txtConsulta.getText());
+         
+         
+         
+          if(accion.equals("guardar")){
+            if(func.insetar(c))
+            {
+                JOptionPane.showMessageDialog(rootPane,"La consulta se guardo correctamente");
+                mostrar("");
+            }
+        }   
+    }
+    
+    public void buscarConsulta()
+    {
+        
+       Consulta consulta = new Consulta();
+       PConsulta func = new PConsulta();
+        try
+        {
+            consulta =func.buscarConsulta(Integer.parseInt(txtCiConsulta.getText()));
+           
+           if(func!=null)
+           {
+               
+               txtNombreConsulta.setText(consulta.getNombre());
+               dpfechaConsulta.setDate(consulta.getFecha());
+               txtEdadConsulta.setText(String.valueOf(consulta.getEdad()));
+               txtConsulta.setText(consulta.getObservaciones());
+               
+               
+           }     
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"No se encontro el registro"+e);
+        }    
+    }
+    
+    public void ConsultagetSiguiente()
+    {
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,12 +142,11 @@ public class frmMenu extends javax.swing.JFrame {
         pnlNuevaConsulta = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtEdadConsulta = new javax.swing.JTextField();
-        lblSearchConsulta = new javax.swing.JLabel();
         txtCiConsulta = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txaConsulta = new javax.swing.JTextArea();
+        txtConsulta = new javax.swing.JTextArea();
         txtNombreConsulta = new javax.swing.JTextField();
         btnHomeopatia = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
@@ -72,6 +158,8 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnGuardarConsulta = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        dpfechaConsulta = new org.jdesktop.swingx.JXDatePicker();
+        btnbuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -123,6 +211,11 @@ public class frmMenu extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Ver consultas");
         jButton2.setBorderPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         lblSearchPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_search-icon-light-grey-hi_1 (1).png"))); // NOI18N
         lblSearchPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -309,28 +402,16 @@ public class frmMenu extends javax.swing.JFrame {
         pnlNuevaConsulta.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 36, 62, -1));
 
         txtEdadConsulta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEdadConsulta.setNextFocusableComponent(txaConsulta);
+        txtEdadConsulta.setNextFocusableComponent(txtConsulta);
         pnlNuevaConsulta.add(txtEdadConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 50, 40));
-
-        lblSearchConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_search-icon-light-grey-hi_1 (1).png"))); // NOI18N
-        lblSearchConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSearchConsultaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblSearchConsultaMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblSearchConsultaMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblSearchConsultaMouseReleased(evt);
-            }
-        });
-        pnlNuevaConsulta.add(lblSearchConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, -1, -1));
 
         txtCiConsulta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCiConsulta.setNextFocusableComponent(txtEdadConsulta);
+        txtCiConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCiConsultaActionPerformed(evt);
+            }
+        });
         pnlNuevaConsulta.add(txtCiConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 230, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -341,9 +422,9 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel7.setText("Nombre");
         pnlNuevaConsulta.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 90, -1));
 
-        txaConsulta.setColumns(20);
-        txaConsulta.setRows(5);
-        jScrollPane2.setViewportView(txaConsulta);
+        txtConsulta.setColumns(20);
+        txtConsulta.setRows(5);
+        jScrollPane2.setViewportView(txtConsulta);
 
         pnlNuevaConsulta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 690, 240));
 
@@ -383,6 +464,11 @@ public class frmMenu extends javax.swing.JFrame {
         btnAnterior.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_arrow-left-01-128.png"))); // NOI18N
         btnAnterior.setBorderPainted(false);
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 50, 50));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -398,11 +484,25 @@ public class frmMenu extends javax.swing.JFrame {
         btnGuardarConsulta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnGuardarConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_save-xxl.png"))); // NOI18N
         btnGuardarConsulta.setBorderPainted(false);
+        btnGuardarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarConsultaActionPerformed(evt);
+            }
+        });
         pnlNuevaConsulta.add(btnGuardarConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 200, 80, 70));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Edad");
         pnlNuevaConsulta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 90, -1));
+        pnlNuevaConsulta.add(dpfechaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 180, 40));
+
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+        pnlNuevaConsulta.add(btnbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 115, -1, 30));
 
         jPanel1.add(pnlNuevaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 990, 470));
 
@@ -445,30 +545,6 @@ public class frmMenu extends javax.swing.JFrame {
         lblNuevoPaciente.setBorder(border);        
     }//GEN-LAST:event_lblNuevoPacienteMousePressed
 
-    private void lblListaPacientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMousePressed
-        Border border = LineBorder.createGrayLineBorder();
-        lblListaPacientes.setBorder(border);        // TODO add your handling code here:
-    }//GEN-LAST:event_lblListaPacientesMousePressed
-
-    private void lblListaPacientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseReleased
-        lblListaPacientes.setBorder(null);         
-    }//GEN-LAST:event_lblListaPacientesMouseReleased
-
-    private void lblListaPacientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseEntered
-        Border border = LineBorder.createGrayLineBorder();
-        lblListaPacientes.setBorder(border);        
-    }//GEN-LAST:event_lblListaPacientesMouseEntered
-
-    private void lblListaPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseClicked
-        pnlNuevaConsulta.setVisible(false);
-        pnlListaPacientes.setVisible(true);
-        lblTitle.setText("Lista de Pacientes");
-    }//GEN-LAST:event_lblListaPacientesMouseClicked
-
-    private void lblListaPacientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseExited
-        lblListaPacientes.setBorder(null);
-    }//GEN-LAST:event_lblListaPacientesMouseExited
-
     private void lblNuevaConsultaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevaConsultaMousePressed
         Border border = LineBorder.createGrayLineBorder();
         lblNuevaConsulta.setBorder(border);        }//GEN-LAST:event_lblNuevaConsultaMousePressed
@@ -506,16 +582,6 @@ public class frmMenu extends javax.swing.JFrame {
         lblNuevoPaciente.setBorder(border);          
     }//GEN-LAST:event_lblNuevoPacienteMouseEntered
 
-    private void lblSearchConsultaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseEntered
-        Border border = LineBorder.createGrayLineBorder();
-        lblSearchConsulta.setBorder(border);  
-    }//GEN-LAST:event_lblSearchConsultaMouseEntered
-
-    private void lblSearchConsultaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMousePressed
-        Border border = LineBorder.createGrayLineBorder();
-        lblSearchConsulta.setBorder(border);  
-    }//GEN-LAST:event_lblSearchConsultaMousePressed
-
     private void lblSearchPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchPacienteMousePressed
         Border border = LineBorder.createGrayLineBorder();
         lblSearchPaciente.setBorder(border); 
@@ -533,13 +599,52 @@ public class frmMenu extends javax.swing.JFrame {
         lblSearchPaciente.setBorder(null); 
     }//GEN-LAST:event_lblSearchPacienteMouseReleased
 
-    private void lblSearchConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseExited
-       lblSearchConsulta.setBorder(null); 
-    }//GEN-LAST:event_lblSearchConsultaMouseExited
+    private void btnGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConsultaActionPerformed
+        // TODO add your handling code here:
+        guardarConsulta();
+        
+    }//GEN-LAST:event_btnGuardarConsultaActionPerformed
 
-    private void lblSearchConsultaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseReleased
-        lblSearchConsulta.setBorder(null); 
-    }//GEN-LAST:event_lblSearchConsultaMouseReleased
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+
+        buscarConsulta();
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void txtCiConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCiConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCiConsultaActionPerformed
+
+    private void lblListaPacientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseReleased
+        lblListaPacientes.setBorder(null);
+    }//GEN-LAST:event_lblListaPacientesMouseReleased
+
+    private void lblListaPacientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMousePressed
+        Border border = LineBorder.createGrayLineBorder();
+        lblListaPacientes.setBorder(border);        // TODO add your handling code here:
+    }//GEN-LAST:event_lblListaPacientesMousePressed
+
+    private void lblListaPacientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseExited
+        lblListaPacientes.setBorder(null);
+    }//GEN-LAST:event_lblListaPacientesMouseExited
+
+    private void lblListaPacientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseEntered
+        Border border = LineBorder.createGrayLineBorder();
+        lblListaPacientes.setBorder(border);
+    }//GEN-LAST:event_lblListaPacientesMouseEntered
+
+    private void lblListaPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListaPacientesMouseClicked
+        pnlNuevaConsulta.setVisible(false);
+        pnlListaPacientes.setVisible(true);
+        lblTitle.setText("Lista de Pacientes");
+    }//GEN-LAST:event_lblListaPacientesMouseClicked
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -584,6 +689,8 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNuevaConsulta;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnbuscar;
+    private org.jdesktop.swingx.JXDatePicker dpfechaConsulta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -608,13 +715,12 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblListaPacientes;
     private javax.swing.JLabel lblNuevaConsulta;
     private javax.swing.JLabel lblNuevoPaciente;
-    private javax.swing.JLabel lblSearchConsulta;
     private javax.swing.JLabel lblSearchPaciente;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlListaPacientes;
     private javax.swing.JPanel pnlNuevaConsulta;
-    private javax.swing.JTextArea txaConsulta;
     private javax.swing.JTextField txtCiConsulta;
+    private javax.swing.JTextArea txtConsulta;
     private javax.swing.JTextField txtEdadConsulta;
     private javax.swing.JTextField txtNombreConsulta;
     // End of variables declaration//GEN-END:variables
