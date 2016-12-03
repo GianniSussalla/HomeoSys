@@ -492,6 +492,11 @@ public class frmMenu extends javax.swing.JFrame {
         btnGuardarConsulta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnGuardarConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_save-xxl.png"))); // NOI18N
         btnGuardarConsulta.setBorderPainted(false);
+        btnGuardarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarConsultaActionPerformed(evt);
+            }
+        });
         pnlNuevaConsulta.add(btnGuardarConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 200, 80, 70));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -670,6 +675,10 @@ public class frmMenu extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void btnGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarConsultaActionPerformed
 
     /**
      * @param args the command line arguments
