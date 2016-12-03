@@ -32,6 +32,69 @@ public class frmMenu extends javax.swing.JFrame {
         pnlListaPacientes.setVisible(true);
         pnlNuevaConsulta.setVisible(false);
     }
+    public void guardarConsulta()
+    {
+         if(txtCiConsulta.getText().length()==0)
+        {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar cedula de identidad");
+            txtCiConsulta.requestFocus();
+            return;
+        }
+         
+         if(txtNombreConsulta.getText().length()==0)
+        {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un nombre de consulta");
+            txtNombreConsulta.requestFocus();
+            return;
+        }
+         
+         Consulta c = new Consulta();
+         PConsulta func = new PConsulta();
+         c.setFecha(dpfechaConsulta.getDate());
+         c.setNombre(txtNombreConsulta.getText());
+         c.setEdad(Integer.parseInt(txtEdadConsulta.getText()));
+         c.setCedula(Integer.parseInt(txtCiConsulta.getText()));
+         c.setObservaciones(txtConsulta.getText());
+         
+         
+         
+          if(accion.equals("guardar")){
+            if(func.insetar(c))
+            {
+                JOptionPane.showMessageDialog(rootPane,"La consulta se guardo correctamente");
+                mostrar("");
+            }
+        }   
+    }
+
+
+
+
+
+      public void buscarConsulta()
+    {
+        
+       Consulta consulta = new Consulta();
+       PConsulta func = new PConsulta();
+        try
+        {
+            consulta =func.buscarConsulta(Integer.parseInt(txtCiConsulta.getText()));
+           
+           if(func!=null)
+           {
+               
+               txtNombreConsulta.setText(consulta.getNombre());
+               dpfechaConsulta.setDate(consulta.getFecha());
+               txtEdadConsulta.setText(String.valueOf(consulta.getEdad()));
+               txtConsulta.setText(consulta.getObservaciones());
+               
+               
+           }     
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"No se encontro el registro"+e);
+        }    
+    }
 
     boolean respaldarBD() {
         boolean status = false;
