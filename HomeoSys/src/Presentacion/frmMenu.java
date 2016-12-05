@@ -8,6 +8,7 @@ package Presentacion;
 import Datos.Consulta;
 import Logica.PConsulta;
 import Logica.PPaciente;
+import Reportes.Reportes;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -81,6 +82,12 @@ public class frmMenu extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(rootPane,"La consulta se guardo correctamente");
                 mostrar("");
+                try {
+                    Reportes.reportConsulta(c.getNombre());
+                } catch (Exception e) {
+                    System.out.print(e.toString());
+                }
+                
             }
         }   
     }
@@ -489,6 +496,9 @@ public class frmMenu extends javax.swing.JFrame {
 
         lblSearchConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/rsz_search-icon-light-grey-hi_1 (1).png"))); // NOI18N
         lblSearchConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchConsultaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblSearchConsultaMouseEntered(evt);
             }
@@ -760,6 +770,10 @@ public class frmMenu extends javax.swing.JFrame {
     private void btnGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConsultaActionPerformed
         guardarConsulta();
     }//GEN-LAST:event_btnGuardarConsultaActionPerformed
+
+    private void lblSearchConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchConsultaMouseClicked
+        buscarConsulta();
+    }//GEN-LAST:event_lblSearchConsultaMouseClicked
 
     /**
      * @param args the command line arguments

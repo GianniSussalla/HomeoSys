@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Consultas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5c62857-dbb3-4e04-96aa-582a57c4c39d">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -13,10 +13,43 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="paciente" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from consulta where nombre = $P{paciente}]]>
+	</queryString>
+	<field name="idConsulta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="edad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupHeader>
-			<band height="37"/>
+			<band height="37">
+				<textField>
+					<reportElement x="11" y="0" width="100" height="20" uuid="bd062904-a4d4-4893-becd-d45c74dfc1f6"/>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="124" y="0" width="100" height="20" uuid="c3c65cd7-6467-4acf-a895-6ea65388b635"/>
+					<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="6"/>
@@ -25,7 +58,12 @@
 	<group name="Group2">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
 		<groupHeader>
-			<band height="30"/>
+			<band height="30">
+				<textField>
+					<reportElement x="11" y="0" width="100" height="20" uuid="c99074dc-c17e-4a9c-87e1-6e9df313dcab"/>
+					<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupHeader>
 	</group>
 	<background>
@@ -33,31 +71,24 @@
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
-			<staticText>
-				<reportElement style="SubTitle" x="236" y="114" width="196" height="22" uuid="ce2be996-c8c0-48e9-b9b3-fcf49eda5d4f"/>
-				<textElement>
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
-				</textElement>
-				<text><![CDATA[Coffee SubTitle]]></text>
-			</staticText>
-			<image>
-				<reportElement x="11" y="9" width="130" height="85" uuid="795f6efe-184c-44d8-ad00-8ff66ba8b704"/>
-				<imageExpression><![CDATA["C:\\Users\\Matud\\Documents\\HomeoSys\\HomeoSys\\src\\Files\\logoBlanco.png"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="236" y="37" width="196" height="57" uuid="9120b451-eaf7-4c67-b179-96dfe9de5438"/>
-				<textElement>
+			<textField>
+				<reportElement x="189" y="35" width="207" height="59" uuid="43ebfe0c-a55e-4e17-a5d6-22e4b79ec7cc"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Segoe UI" size="36"/>
 				</textElement>
-				<text><![CDATA[Static text]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{paciente}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="11" y="9" width="113" height="85" uuid="795f6efe-184c-44d8-ad00-8ff66ba8b704"/>
+				<imageExpression><![CDATA["C:\\Users\\Matud\\Documents\\HomeoSys\\HomeoSys\\src\\Files\\logoBlanco.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="16" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="87f4f430-1be9-47d1-9952-50897ff98dec"/>
 				<graphicElement>
@@ -84,12 +115,7 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="25" splitType="Stretch">
-			<staticText>
-				<reportElement x="51" y="0" width="100" height="20" uuid="54a15af4-1183-40c5-a8e9-fdbb581b05f5"/>
-				<text><![CDATA[Static text]]></text>
-			</staticText>
-		</band>
+		<band height="25" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
