@@ -8,7 +8,7 @@ package Presentacion;
 import Datos.Consulta;
 import Logica.PConsulta;
 import Logica.PPaciente;
-import Reportes.Reportes;
+import Reportes.Report;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -51,6 +51,7 @@ public class frmMenu extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(rootPane, e);
         }
     }
+     
     public void guardarConsulta()
     {
          if(txtCiConsulta.getText().length()==0)
@@ -82,12 +83,7 @@ public class frmMenu extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(rootPane,"La consulta se guardo correctamente");
                 mostrar("");
-                try {
-                    Reportes.reportConsulta(c.getNombre());
-                } catch (Exception e) {
-                    System.out.print(e.toString());
-                }
-                
+                Report.reportEstadiaEntreDosFechas(c.getCedula(), c.getFecha());
             }
         }   
     }
